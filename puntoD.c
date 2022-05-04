@@ -2,7 +2,7 @@
 
 void eliminar(char[], char);
 
-
+/*
 int main(){
     char var[40]="hooolaaooa";
     char var1 = 'o';
@@ -13,7 +13,7 @@ int main(){
     system("pause");
     return 0;
 }
-
+*/
 void eliminar(char cadena[], char caracter)
 {
 int i, j;

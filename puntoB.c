@@ -1,17 +1,22 @@
 #include <stdio.h>
-int length(char*);
+int deArraAValor(char*);
 
-
+/*
 int main(){
-   deArraAValor("22555");
-}
+   printf("%d",deArraAValor("22a555"));
 
+}
+*/
 int deArraAValor(char* string){
    int total = 0;
    while(*string){
-   int a = *string - 48;
+      int a = *string;
+   if(a < 48 && a > 57){
+      printf("valor no permitido");
+      return 0;
+   }
    string += 1;
-   total = total*10 + a;
+   total = total*10 + (a - 48);
    }
    return total;
 }

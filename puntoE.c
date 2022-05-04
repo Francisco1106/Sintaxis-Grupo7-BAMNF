@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void concatenar(char primero[], char segundo[], char destino[]);
-
+/*
 int main()
 {
 	char A[]= "Nombre";
@@ -14,6 +14,7 @@ int main()
 	printf("Concatenado: %s", C);
 	return 0;	
 }
+*/
 void concatenar(char primero[], char segundo[], char destino[])
 {
 	int i=0, j=0;
