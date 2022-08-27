@@ -9,40 +9,79 @@ int automata(int[][62], int[], int[],char[], char[]);
 int lenght(int[]);
 
 int main(){
-	int estadosIdentificador[2];
-	int estadosFinales[1];
-	int identificador[3][62];
-	char alfabeto[70];
+	//-------IDENTIFICADORES------
+	int IdEstados[2];
+	int IdEstadosFinales[1];
+	int IdTT[3][62];
+	char IdAlfabeto[70];
+	
+	//-------CONSTANTES------
+	int ConsEstados[5];
+	int ConsEstadosFinales[1];
+	int ConsTT[5][62];
+	char ConsAlfabeto[70];
+	
+	//-------OPERADORES------
+	int OpEstados[2];
+	int OpEstadosFinales[1];
+	int OpTT[3][62];
+	char OpAlfabeto[70];
+	
+	//-------CADENAS LITERALES------
+	int CadLitEstados[2];
+	int CadLitEstadosFinales[1];
+	int CadLitTT[3][62];
+	char CadLitAlfabeto[70];
+	
+	//-------CARACTERES DE PUNTUACION------
+	int PuntuacionEstados[2];
+	int PuntuacionEstadosFinales[1];
+	int PuntuacionTT[3][62];
+	char PuntuacionAlfabeto[70];
+	
 	int cod_ascii=48;
 	int j;
 	
 	
 	
 	for(j=0;j<10;j++){
-	alfabeto[j]=cod_ascii;
-	cod_ascii++;
-	identificador[0][j]=2;
-	identificador[1][j]=1;
-	identificador[2][j]=2;
+		//numeros del 0 al 9
+		ConsAlfabeto[j]=cod_ascii;
+		IdAlfabeto[j]=cod_ascii;
+		CadLitAlfabeto[j]=cod_ascii;
+		cod_ascii++;
+		IdTT[0][j]=2;
+		IdTT[1][j]=1;
+		IdTT[2][j]=2;
 	}
 	cod_ascii=65;
+	
 	for(;j<36;j++){
-		alfabeto[j]=cod_ascii;
+		//letras minusculas
+		ConsAlfabeto[j]=cod_ascii;
+		IdAlfabeto[j]=cod_ascii;
+		CadLitAlfabeto[j]=cod_ascii;
 		cod_ascii++;
-		identificador[0][j]=1;
-		identificador[1][j]=1;
-		identificador[2][j]=2;
+		IdTT[0][j]=1;
+		IdTT[1][j]=1;
+		IdTT[2][j]=2;
 	}
 	
 	cod_ascii=97;
 	for(;j<62;j++){
-		alfabeto[j]=cod_ascii;
+		//letras mayusculas
+		ConsAlfabeto[j]=cod_ascii;
+		IdAlfabeto[j]=cod_ascii;
+		CadLitAlfabeto[j]=cod_ascii;
 		cod_ascii++;
-		identificador[0][j]=1;
-		identificador[1][j]=1;
-		identificador[2][j]=2;
+		IdTT[0][j]=1;
+		IdTT[1][j]=1;
+		IdTT[2][j]=2;
 	}
-	alfabeto[62]='\0';
+	ConsAlfabeto[62]='~';
+	CadLitAlfabeto[62]='-';
+	
+	IdAlfabeto[62]=ConsAlfabeto[63]='\0';
 	
 	for(j=0;j<62;j++){
 		printf("%d %c\n",j,alfabeto[j]);
@@ -57,7 +96,7 @@ int main(){
 	char cadena[10]= "22a";
 	printf(" valor de cadena[0]: %c\n", cadena[0]);
 	
-	printf(" valor del automata: %d", automata(identificador, estadosIdentificador, estadosFinales, alfabeto, cadena));
+	printf(" valor del automata: %d", automata(IdTT, estadosIdentificador, estadosFinales, alfabeto, cadena));
 	
 	return 0;
 }
