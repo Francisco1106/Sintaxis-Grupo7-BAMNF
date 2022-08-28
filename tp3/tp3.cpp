@@ -17,7 +17,7 @@ int main(){
 	//-------CONSTANTES------
 	int ConsEstadosFinales[1];
 	int ConsTT[5][62];
-	char ConsAlfabeto[70]="0123456789-";
+	char ConsAlfabeto[70]="0123456789~";
 	
 	//-------OPERADORES------
 	int OpEstadosFinales[2];
@@ -27,7 +27,7 @@ int main(){
 	//-------CADENAS LITERALES------
 	int CadLitEstadosFinales[1];
 	int CadLitTT[3][62];
-	char CadLitAlfabeto[70]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~";
+	char CadLitAlfabeto[70]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
 	
 	//-------CARACTERES DE PUNTUACION------
 	int PuntuacionEstadosFinales[1];
@@ -35,16 +35,13 @@ int main(){
 	char PuntuacionAlfabeto[8]="\n{}[]()";
 	
 	//-------PALABRAS RESERVADAS------
-	int PalabrasReservEstadosFinales[7]={6, 18, 21, 13, 27, 31, 33};
+	int PalabrasReservEstadosFinales[7];
 	int PalabrasReservTT[35][62];
 	char PalabrasReservAlfabeto[70]="numeroptalbwhifd";
 	
 	int j,i;
 	
-		for(i=0;i<18;i++){
-		printf("alfabeto[%d]: %c \n", i, PalabrasReservAlfabeto[i]);
-	}
-	
+
 	
 	for(j=0;j<10;j++){
 		//numeros del 0 al 9
@@ -129,15 +126,14 @@ int main(){
 	PalabrasReservTT[28][14] = 29;
 	PalabrasReservTT[33][15] = 34;
 	
-	/*PalabrasReservEstadosFinales[0]=6;
+	PalabrasReservEstadosFinales[0]=6;
 	PalabrasReservEstadosFinales[1]=13;
 	PalabrasReservEstadosFinales[2]=18;
 	PalabrasReservEstadosFinales[3]=21;
 	PalabrasReservEstadosFinales[4]=27;
 	PalabrasReservEstadosFinales[5]=31;
-	PalabrasReservEstadosFinales[6]=33;*/
+	PalabrasReservEstadosFinales[6]=33;
 	
-		printf("\n el lenght es: %d \n",lenght(PalabrasReservEstadosFinales) );
 		
 	//------LLENANDO PUNTUACION---------
 	for(i=0;i<7;i++)
@@ -157,15 +153,15 @@ int main(){
 	cout<<"ingresar cadena: ";
 	cin>>cadena;
 	//scanf("ingresar cadena: %s \n", cadena);
-	while(cadena[0]!='\n')
+	while(cadena[0]!='0')
 	{
 	printf(" cadena: %s\n\n", cadena);
-	//printf("valor del automata para identificador: %d \n",automata(IdTT,IdEstadosFinales, IdAlfabeto, cadena));
-	//printf("valor del automata para constantes: %d \n",automata(ConsTT,ConsEstadosFinales, ConsAlfabeto, cadena));
+	printf("valor del automata para identificador: %d \n",automata(IdTT,IdEstadosFinales, IdAlfabeto, cadena));
+	printf("valor del automata para constantes: %d \n",automata(ConsTT,ConsEstadosFinales, ConsAlfabeto, cadena));
 	printf("valor del automata para palabras reservadas: %d \n", automata(PalabrasReservTT, PalabrasReservEstadosFinales, PalabrasReservAlfabeto, cadena));
-	//printf("valor del automata para puntuacionr: %d \n",automata(PuntuacionTT,PuntuacionEstadosFinales, PuntuacionAlfabeto, cadena));
-	//printf("valor del automata para operadores: %d \n",automata(OpTT,OpEstadosFinales, OpAlfabeto, cadena));
-	//printf("valor del automata para cedenas literales: %d \n",automata(IdTT,IdEstadosFinales, IdAlfabeto, cadena));
+	printf("valor del automata para puntuacionr: %d \n",automata(PuntuacionTT,PuntuacionEstadosFinales, PuntuacionAlfabeto, cadena));
+	printf("valor del automata para operadores: %d \n",automata(OpTT,OpEstadosFinales, OpAlfabeto, cadena));
+	printf("valor del automata para cedenas literales: %d \n",automata(IdTT,IdEstadosFinales, IdAlfabeto, cadena));
 	
 	//scanf("ingresar cadena: %s \n", &cadena);
 	cout<<"ingresar cadena: ";
@@ -178,17 +174,13 @@ int automata(int TT[][62],int estadosFinales[],char alfabeto[], char cadena[]){
 	int i=0, j=0, estadoActual=0, resultado=1;
 	int bandera=0;
 	while (cadena[i]!= '\0'){
-		printf("cadena[i]: %c \n", cadena[i]);
 		j=0;
 		while((cadena[i] != alfabeto[j] )&& alfabeto[j] != '\0'){
-			printf("cadena[%d]==alfabeto[%d] >> %d  %d %d\n", i, j, (cadena[i]==alfabeto[j]), cadena[i], alfabeto[j]);
 			j++;
 		}
-		printf("valor de alfabeto[%d]: %c", j, alfabeto[j]);
 	
 		if(alfabeto[j]==cadena[i]){
 		estadoActual = TT[estadoActual][j];
-		printf("estado actual: %d  resultado: %d \n", estadoActual, resultado);	
 		}
 		else {
 		resultado=0;
@@ -197,31 +189,17 @@ int automata(int TT[][62],int estadosFinales[],char alfabeto[], char cadena[]){
 		i++;
 		
 	}
-	printf("\nresultado: %d \n", resultado);
 	if(resultado==1){
-		printf("comprobando si es final1\n ");
-	for(int k=0; k<lenght(estadosFinales);k++){
-		printf("comprobando si es final k: %d \n", k);
-		printf("\n el lenght es: %d \n",lenght(estadosFinales) );
+	for(int k=0; k<7;k++){
 		if(estadoActual == estadosFinales[k]){
 			bandera=1;
-			printf("comprobando si es final");
 		}
 	}
 	resultado=bandera;}
 	
-	for(i=0;i<18;i++){
-		printf("alfabeto[%d]: %d \n", i, alfabeto[i]);
-	}
 	
 	return resultado;
 }
 
-int lenght(int array[]){
-	int cant;
-	printf("sizeof array: %d, sizeof array[0]: %d", sizeof array, sizeof array[0]);
-	cant = sizeof array/ sizeof array[0];
-	return cant;
-}
 
 
