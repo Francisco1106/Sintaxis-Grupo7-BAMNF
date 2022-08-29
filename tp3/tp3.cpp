@@ -5,38 +5,38 @@
 using namespace std;
 
 //prototipo de funciones
-int automata(int[][62], int[],char[], char[]);
+int automata(int[][70], int[],char[], char[]);
 int lenght(int[]);
 
 int main(){
 	//-------IDENTIFICADORES------
 	int IdEstadosFinales[1]={2};
-	int IdTT[4][62];
+	int IdTT[4][70];
 	char IdAlfabeto[70]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	
 	//-------CONSTANTES------
 	int ConsEstadosFinales[1];
-	int ConsTT[5][62];
+	int ConsTT[5][70];
 	char ConsAlfabeto[70]="0123456789~";
 	
 	//-------OPERADORES------
 	int OpEstadosFinales[2];
-	int OpTT[3][62];
+	int OpTT[3][70];
 	char OpAlfabeto[8]="+-*/!¡=";
 	
 	//-------CADENAS LITERALES------
-	int CadLitEstadosFinales[1];
-	int CadLitTT[3][62];
-	char CadLitAlfabeto[70]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
+	int CadLitEstadosFinales[1]={3};
+	int CadLitTT[5][70];
+	char CadLitAlfabeto[80]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\n{}[]()-";
 	
 	//-------CARACTERES DE PUNTUACION------
 	int PuntuacionEstadosFinales[1];
-	int PuntuacionTT[3][62];
+	int PuntuacionTT[3][70];
 	char PuntuacionAlfabeto[8]="\n{}[]()";
 	
 	//-------PALABRAS RESERVADAS------
 	int PalabrasReservEstadosFinales[7];
-	int PalabrasReservTT[35][62];
+	int PalabrasReservTT[36][70];
 	char PalabrasReservAlfabeto[70]="numeroptalbwhifd";
 	
 	int j,i;
@@ -55,6 +55,12 @@ int main(){
 		ConsTT[2][j]= 2;
 		ConsTT[3][j]= 4;
 		ConsTT[4][j]= 4;
+		
+		CadLitTT[0][j]=4;
+		CadLitTT[1][j]=2;
+		CadLitTT[2][j]=2;
+		CadLitTT[3][j]=4;
+		CadLitTT[4][j]=4;
 	}
 	
 	for(;j<62;j++){
@@ -63,6 +69,12 @@ int main(){
 		IdTT[1][j]=2;
 		IdTT[2][j]=2;
 		IdTT[3][j]=3;
+		
+		CadLitTT[0][j]=4;
+		CadLitTT[1][j]=2;
+		CadLitTT[2][j]=2;
+		CadLitTT[3][j]=4;
+		CadLitTT[4][j]=4;
 	}
 	// ---------LLENANDO CONS---------------
 	ConsTT[0][10]= 1;
@@ -132,14 +144,27 @@ int main(){
 	PalabrasReservEstadosFinales[3]=21;
 	PalabrasReservEstadosFinales[4]=27;
 	PalabrasReservEstadosFinales[5]=31;
-	PalabrasReservEstadosFinales[6]=33;
+	PalabrasReservEstadosFinales[6]=34;
+	
 	
 		
-	//------LLENANDO PUNTUACION---------
+	//------LLENANDO PUNTUACION Y CADENAS LITERALES---------
 	for(i=0;i<7;i++)
 		{ PuntuacionTT[0][i] = 1;
 		PuntuacionTT[1][i] = 2;
-		PuntuacionTT[2][i] = 2;}
+		PuntuacionTT[2][i] = 2;
+		
+		CadLitTT[0][i+62]=4;
+		CadLitTT[1][i+62]=2;
+		CadLitTT[2][i+62]=2;
+		CadLitTT[3][i+62]=4;
+		CadLitTT[4][i+62]=4;
+		}
+		CadLitTT[0][69]=1;
+		CadLitTT[1][69]=4;
+		CadLitTT[2][69]=3;
+		CadLitTT[3][69]=4;
+		CadLitTT[4][69]=4;
 	
 	PuntuacionEstadosFinales[0]=1;
 	
@@ -161,7 +186,7 @@ int main(){
 	printf("valor del automata para palabras reservadas: %d \n", automata(PalabrasReservTT, PalabrasReservEstadosFinales, PalabrasReservAlfabeto, cadena));
 	printf("valor del automata para puntuacionr: %d \n",automata(PuntuacionTT,PuntuacionEstadosFinales, PuntuacionAlfabeto, cadena));
 	printf("valor del automata para operadores: %d \n",automata(OpTT,OpEstadosFinales, OpAlfabeto, cadena));
-	printf("valor del automata para cedenas literales: %d \n",automata(IdTT,IdEstadosFinales, IdAlfabeto, cadena));
+	printf("valor del automata para cedenas literales: %d \n",automata(CadLitTT,CadLitEstadosFinales, CadLitAlfabeto, cadena));
 	
 	//scanf("ingresar cadena: %s \n", &cadena);
 	cout<<"ingresar cadena: ";
@@ -170,7 +195,7 @@ int main(){
 	return 0;
 }
 
-int automata(int TT[][62],int estadosFinales[],char alfabeto[], char cadena[]){
+int automata(int TT[][70],int estadosFinales[],char alfabeto[], char cadena[]){
 	int i=0, j=0, estadoActual=0, resultado=1;
 	int bandera=0;
 	while (cadena[i]!= '\0'){
@@ -180,8 +205,8 @@ int automata(int TT[][62],int estadosFinales[],char alfabeto[], char cadena[]){
 		}
 	
 		if(alfabeto[j]==cadena[i]){
-		estadoActual = TT[estadoActual][j];
-		}
+			estadoActual = TT[estadoActual][j];
+			}
 		else {
 		resultado=0;
 		break;
