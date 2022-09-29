@@ -29,8 +29,8 @@ int test(void){
     assert(c3 == 10);
     printf("50 f a c es: %d\n", c3);
 
-    f3 = 14;
-    c3 = toCelcius(f3);
+    f4 = 14;
+    c4 = toCelcius(f4);
     assert(c4 == -10);
     printf("14 f a c es: %d\n", c4);
 
